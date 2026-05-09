@@ -1,0 +1,11 @@
+# Built binaries
+/ciscobuddy
+/ciscobuddy.exe
+
+# IDE
+/.idea/
+/.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
