@@ -18,5 +18,5 @@ clean:
 
 run-example: build
 	./$(BIN_NAME) -ip 194.1.10.180 194.1.10.255 -r 2 \
-	    -name "Reteaua A" -dev 42 \
-	    -name "Reteaua B" -dev 2
+	    -name "Network A" -dev 42 \
+	    -name "Network B" -dev 2

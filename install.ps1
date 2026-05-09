@@ -18,28 +18,28 @@ if ($PSScriptRoot) {
 # If source files aren't here, clone the repo into a temp dir
 if (-not (Test-Path "main.go") -or -not (Test-Path "go.mod")) {
     if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
-        Write-Error "'git' nu este instalat. Get it: https://git-scm.com/download/win"
+        Write-Error "'git' is not installed. Get it: https://git-scm.com/download/win"
         exit 1
     }
     $tmp = Join-Path $env:TEMP "CiscoBuddy-$(Get-Random)"
-    Write-Host ">> Clonez $RepoUrl ..."
+    Write-Host ">> Cloning $RepoUrl ..."
     & git clone --depth 1 $RepoUrl $tmp
     if ($LASTEXITCODE -ne 0) {
-        Write-Error "git clone a esuat."
+        Write-Error "git clone failed."
         exit 1
     }
     Set-Location $tmp
 }
 
 if (-not (Get-Command go -ErrorAction SilentlyContinue)) {
-    Write-Error "'go' nu este instalat sau nu e in PATH. Instaleaza Go de la https://go.dev/dl/"
+    Write-Error "'go' is not installed or not in PATH. Install Go from https://go.dev/dl/"
     exit 1
 }
 
-Write-Host ">> Build $BinName ..."
+Write-Host ">> Building $BinName ..."
 & go build -o $BinName .
 if ($LASTEXITCODE -ne 0) {
-    Write-Error "go build a esuat."
+    Write-Error "go build failed."
     exit 1
 }
 
@@ -48,7 +48,7 @@ if (-not (Test-Path $InstallDir)) {
 }
 
 Copy-Item -Path $BinName -Destination (Join-Path $InstallDir $BinName) -Force
-Write-Host ">> Instalat in: $InstallDir\$BinName"
+Write-Host ">> Installed to: $InstallDir\$BinName"
 
 # Add InstallDir to user PATH if not already there
 $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
@@ -58,11 +58,11 @@ $pathParts = $userPath.Split(';') | Where-Object { $_ -ne "" }
 if ($pathParts -notcontains $InstallDir) {
     $newPath = if ($userPath -eq "") { $InstallDir } else { "$userPath;$InstallDir" }
     [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
-    Write-Host ">> $InstallDir a fost adaugat in PATH (user-level)."
-    Write-Host ">> ATENTIE: deschide un terminal NOU ca modificarea sa fie vizibila."
+    Write-Host ">> $InstallDir has been added to PATH (user-level)."
+    Write-Host ">> WARNING: open a NEW terminal for the change to take effect."
 } else {
-    Write-Host ">> $InstallDir este deja in PATH."
+    Write-Host ">> $InstallDir is already in PATH."
 }
 
 Write-Host ""
-Write-Host "Gata. Foloseste: ciscobuddy -ip ..."
+Write-Host "Done. Use: ciscobuddy -ip ..."

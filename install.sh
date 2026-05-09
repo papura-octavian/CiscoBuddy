@@ -20,42 +20,42 @@ fi
 # If we don't have source files here, clone the repo into a temp dir
 if [ ! -f "main.go" ] || [ ! -f "go.mod" ]; then
     if ! command -v git >/dev/null 2>&1; then
-        echo "error: 'git' nu este instalat." >&2
+        echo "error: 'git' is not installed." >&2
         exit 1
     fi
     TMP_DIR="$(mktemp -d)"
     trap 'rm -rf "$TMP_DIR"' EXIT
-    echo ">> Clonez $REPO_URL ..."
+    echo ">> Cloning $REPO_URL ..."
     git clone --depth 1 "$REPO_URL" "$TMP_DIR/repo"
     cd "$TMP_DIR/repo"
 fi
 
 if ! command -v go >/dev/null 2>&1; then
-    echo "error: 'go' nu este instalat sau nu e in PATH." >&2
-    echo "Instaleaza Go de la: https://go.dev/dl/" >&2
+    echo "error: 'go' is not installed or not in PATH." >&2
+    echo "Install Go from: https://go.dev/dl/" >&2
     exit 1
 fi
 
-echo ">> Build $BIN_NAME ..."
+echo ">> Building $BIN_NAME ..."
 go build -o "$BIN_NAME" .
 
 mkdir -p "$INSTALL_DIR"
 install -m 0755 "$BIN_NAME" "$INSTALL_DIR/$BIN_NAME"
 
-echo ">> Instalat in: $INSTALL_DIR/$BIN_NAME"
+echo ">> Installed to: $INSTALL_DIR/$BIN_NAME"
 
 case ":$PATH:" in
     *":$INSTALL_DIR:"*)
-        echo ">> $INSTALL_DIR este deja in PATH."
-        echo ">> Gata. Ruleaza: $BIN_NAME -ip ..."
+        echo ">> $INSTALL_DIR is already in PATH."
+        echo ">> Done. Run: $BIN_NAME -ip ..."
         ;;
     *)
         echo ""
-        echo "ATENTIE: $INSTALL_DIR NU este in PATH."
-        echo "Adauga linia urmatoare in ~/.bashrc (sau ~/.zshrc):"
+        echo "WARNING: $INSTALL_DIR is NOT in PATH."
+        echo "Add the following line to ~/.bashrc (or ~/.zshrc):"
         echo ""
         echo "    export PATH=\"\$HOME/.local/bin:\$PATH\""
         echo ""
-        echo "Apoi: source ~/.bashrc  (sau deschide un terminal nou)"
+        echo "Then: source ~/.bashrc  (or open a new terminal)"
         ;;
 esac
