@@ -40,7 +40,7 @@ winget install --id GoLang.Go -e --source winget; winget install --id Git.Git -e
 
 Otherwise, grab Go from <https://go.dev/dl/>.
 
-## Quick install 
+## Install CiscoBuddy
 
 ### Linux / macOS
 
