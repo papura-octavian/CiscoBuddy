@@ -100,3 +100,7 @@ All errors are printed to `stderr` and the program exits with code `1`.
 - IPv4 only.
 - The router topology is always single-backbone (all routers on one shared network). Topologies with /30 point-to-point links between pairs or chains aren't supported yet.
 - Network names with spaces must be quoted.
+
+## License
+
+Released under the [MIT License](LICENSE).
