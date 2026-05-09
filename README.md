@@ -6,6 +6,40 @@ Covers parts 1 and 2 of typical DHCP/Subnetting problems (IP allocation per netw
 
 ![CiscoBuddy demo](Example.gif)
 
+## Requirements
+
+- **Go 1.21+** (for building) — tested on `go1.26.3`
+- **git** (for the install one-liner)
+- Linux, macOS, or Windows
+
+Check your version with:
+
+```bash
+go version
+```
+
+If you don't have Go, install it with one of the one-liners below.
+
+### Quick Go install — Linux (Debian/Ubuntu/Kali)
+
+```bash
+sudo apt-get update && sudo apt-get install -y golang-go git
+```
+
+### Quick Go install — Linux (official tarball, any distro)
+
+```bash
+curl -fsSLO https://go.dev/dl/go1.23.4.linux-amd64.tar.gz && sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.4.linux-amd64.tar.gz && echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc && export PATH=$PATH:/usr/local/go/bin
+```
+
+### Quick Go install — Windows (PowerShell, winget)
+
+```powershell
+winget install --id GoLang.Go -e --source winget; winget install --id Git.Git -e --source winget
+```
+
+Otherwise, grab Go from <https://go.dev/dl/>.
+
 ## Quick install 
 
 ### Linux / macOS
@@ -26,20 +60,6 @@ The command clones the repo into a temporary directory, builds the binary, and d
 > ```powershell
 > Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 > ```
-
-## Requirements
-
-- **Go 1.21+** (for building) — tested on `go1.26.3`
-- **git** (for the install one-liner)
-- Linux, macOS, or Windows
-
-Check your version with:
-
-```bash
-go version
-```
-
-If you don't have Go: <https://go.dev/dl/>
 
 ## Usage
 
